@@ -44,12 +44,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected function name():Attribute
+    /*  protected function name():Attribute
     {
         return Attribute::make(
             get: fn($value) => strtoupper($value)
         );
-    }
+    } */
 
     protected function password():Attribute
     {
