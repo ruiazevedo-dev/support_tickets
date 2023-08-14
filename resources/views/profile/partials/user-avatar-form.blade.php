@@ -10,14 +10,25 @@
             <img width="50" height="50" class="rounded-full" src="{{ "/storage/$user->avatar" }}" alt="user avatar">
 
         @endif
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __("Add or update user Avatar") }}
-        </p>
+
+        <form action="{{ route('profile.avatar.ai') }}" method="POST" class="mt-4">
+            @csrf
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                Generate avatar from ai
+            </p>
+            <x-primary-button>Generate avatar</x-primary-button>
+        </form>
+
+        
     </header>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
+
+    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        Or
+    </p>
 
 
     @if (session('message'))
@@ -27,11 +38,11 @@
         
     @endif
 
-    <form class="mt-6 space-y-6" method="POST" action="{{ route('profile.avatar') }}" enctype="multipart/form-data">
+    <form class="mt-2" method="POST" action="{{ route('profile.avatar') }}" enctype="multipart/form-data">
         @csrf
         @method('patch')
         <div>
-            <x-input-label for="avatar" :value="__('Avatar')" />
+            <x-input-label for="avatar" value="Upload Avatar from computer" />
             <x-text-input id="avatar" name="avatar" type="file" class="mt-1 block w-full" :value="old('avatar', $user->avatar)" autocomplete="avatar" />
             <x-input-error class="mt-2" :messages="$errors->get('avatar')" />
         </div>
