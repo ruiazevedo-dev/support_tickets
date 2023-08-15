@@ -31,7 +31,7 @@ class AvatarController extends Controller
     {
 
        $result = OpenAI::images()->create([
-                'prompt' => 'create avatar for user',
+                'prompt' => 'create avatar for one user with tech style',
                 'n' => 1,
                 'size' => '256x256'
         ]);

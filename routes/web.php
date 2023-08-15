@@ -2,9 +2,12 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Profile\AvatarController;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +39,19 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+Route::post('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('login.github');
 
+Route::get('/auth/callback', function () {
 
+    $user = Socialite::driver('github')->stateless()->user();
+    $user = User::firstOrCreate( ['email' => $user->email],[
+        'name' => $user->name,
+        'password' => Str::random(15)
+    ]);
+
+    Auth::login($user);
+    return redirect('/dashboard');
+});
 
