@@ -17,6 +17,13 @@
                     </x-nav-link>
                 </div>
             </div>
+            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="flex flex-col justify-center">
+                <a href="/ticket/create" class="ml-3 text-gray-400">
+                    Support Ticket
+                </a>
+            </div>
+            
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -61,6 +68,7 @@
                     </svg>
                 </button>
             </div>
+        </div>
         </div>
     </div>
 
