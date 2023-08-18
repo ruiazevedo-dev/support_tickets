@@ -61,6 +61,7 @@ Route::get('/auth/callback', function () {
 //tickets
 Route::middleware('auth')->group(function (){
     Route::get('/ticket/index',[TicketController::class, 'index'])->name('ticket.index');
+    Route::get('/ticket/{$id}',[TicketController::class, 'show'])->name('ticket.show');
     Route::get('/ticket/create', [TicketController::class,'create'])->name('ticket.create');
     Route::post('/ticket/store', [TicketController::class,'store'])->name('ticket.store');
 });

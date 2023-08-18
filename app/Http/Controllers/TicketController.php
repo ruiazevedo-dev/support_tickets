@@ -15,7 +15,8 @@ class TicketController extends Controller
      */
     public function index()
     {
-        dd("hello");
+        $tickets  = Ticket::all()->where('user_id', auth()->id());
+        return view('ticket.index',['tickets' => $tickets]);
     }
 
     /**
