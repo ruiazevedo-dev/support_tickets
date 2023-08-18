@@ -59,9 +59,9 @@ Route::get('/auth/callback', function () {
 });
 
 //tickets
-Route::middleware('auth')->prefix('ticket')->group(function (){
-    Route::resource('/',TicketController::class);
-    /* Route::get('/ticket/create', [TicketController::class,'create'])->name('ticket.create');
-    Route::post('/ticket/create', [TicketController::class,'store'])->name('ticket.store'); */
+Route::middleware('auth')->group(function (){
+    Route::get('/ticket/index',[TicketController::class, 'index'])->name('ticket.index');
+    Route::get('/ticket/create', [TicketController::class,'create'])->name('ticket.create');
+    Route::post('/ticket/store', [TicketController::class,'store'])->name('ticket.store');
 });
 
