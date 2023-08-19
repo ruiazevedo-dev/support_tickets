@@ -74,21 +74,20 @@ class TicketController extends Controller
         if($request->file('attachment') == NULl){
             $ticket->update(['title' => $request->title,'description' => $request->description]);
         }
-       /*  else{
-            if($ticket->attachment){
-                Storage::disk('public')->delete($request->file('attachment'));
-
+        else{
+            if($ticket->attachment == NULl && $request->file('attachment') != NULL){
+                
+                $ticket->update(['title' => $request->title,'description' => $request->description]);
                 $this->store_attachment($request,$ticket);
-            }else{
-                $ticket->update(['title' => $request->title,'description' => $request->description,'attachment' => $request->attachment]);
+            }
+            if($ticket->attachment && $request->file('attachment'))
+            {
+                Storage::disk('public')->delete($ticket->attachment);
+                $this->store_attachment($request,$ticket);
             }
             
-        } */
-
-        //dd($request->file('attachment'));
-        
-
-        
+            
+        }
 
         return redirect(route('ticket.index'));
     }
