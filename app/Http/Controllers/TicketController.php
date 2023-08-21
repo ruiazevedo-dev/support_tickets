@@ -70,18 +70,17 @@ class TicketController extends Controller
      */
     public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
+        $ticket->update(['title' => $request->title,'description' => $request->description]);
         
-        if($request->file('attachment') == NULl){
-            $ticket->update(['title' => $request->title,'description' => $request->description]);
-        }
-        else{
+        if($request->file('attachment')){
             if($ticket->attachment == NULl && $request->file('attachment') != NULL){
                 
-                $ticket->update(['title' => $request->title,'description' => $request->description]);
+                
                 $this->store_attachment($request,$ticket);
             }
             if($ticket->attachment && $request->file('attachment'))
             {
+                
                 Storage::disk('public')->delete($ticket->attachment);
                 $this->store_attachment($request,$ticket);
             }
@@ -97,7 +96,8 @@ class TicketController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
-        //
+        $ticket->delete();
+        return redirect(route('ticket.index'));
     }
 
     protected function store_attachment($request,$ticket){

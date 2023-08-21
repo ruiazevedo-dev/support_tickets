@@ -13,11 +13,11 @@
                 <a href="{{ route('ticket.edit',$ticket->id) }}">
                     <x-primary-button>Edit Ticket</x-primary-button>
                 </a>
-                {{-- <form action="{{ route('ticket.destroy',$ticket->id) }}" method="POST" class="ml-2">
-                    @method('destroy')
+                <form action="{{ route('ticket.destroy',$ticket->id) }}" method="POST" class="ml-2">
+                    @method('delete')
                     @csrf
                     <x-primary-button class="bg-red-500">Delete</x-primary-button>
-                </form> --}}
+                </form>
             </div>
         </div>
     </div>
