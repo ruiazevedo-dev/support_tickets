@@ -9,15 +9,36 @@
                     <a href="{{ "/storage/". $ticket->attachment }}" target="_blank">Attachment</a>
                 @endif
             </div>
-            <div class="flex">
-                <a href="{{ route('ticket.edit',$ticket->id) }}">
-                    <x-primary-button>Edit Ticket</x-primary-button>
-                </a>
-                <form action="{{ route('ticket.destroy',$ticket->id) }}" method="POST" class="ml-2">
-                    @method('delete')
-                    @csrf
-                    <x-primary-button class="bg-red-500">Delete</x-primary-button>
-                </form>
+            <div class="flex justify-between">
+                <div class="flex">
+                    <a href="{{ route('ticket.edit',$ticket->id) }}">
+                        <x-primary-button>Edit Ticket</x-primary-button>
+                    </a>
+                    <form action="{{ route('ticket.destroy',$ticket->id) }}" method="POST" class="ml-2">
+                        @method('delete')
+                        @csrf
+                        <x-primary-button class="bg-red-500">Delete</x-primary-button>
+                    </form>
+                </div>
+                @if(auth()->user()->isAdmin)
+                    <div class="flex">
+                        <form action="{{ route('ticket.update',$ticket->id) }}" method="POST">
+                            @method('patch')
+                            @csrf
+                            <input type="hidden" name="status" value="resolved" />
+                            <x-primary-button>Resolve</x-primary-button>
+                        </form>
+                        
+                        <form action="{{ route('ticket.update',$ticket->id) }}" method="POST">
+                            @method('patch')
+                            @csrf
+                            <input type="hidden" name="status" value="rejected" />
+                            <x-primary-button class="ml-2">Reject</x-primary-button>
+                        </form>
+                    </div>
+                    @else
+                    <p class="text-white">Status: {{ $ticket->status }}</p>
+                @endif
             </div>
         </div>
     </div>

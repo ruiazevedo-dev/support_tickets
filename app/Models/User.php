@@ -59,4 +59,14 @@ class User extends Authenticatable
         );
         
     }
+
+    protected function isAdmin():Attribute
+    {
+        $admins = ['rui@email.com'];
+        return Attribute::make(
+            get: fn() =>  in_array($this->email,$admins)
+        );
+        
+        
+    }
 }
