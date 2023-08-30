@@ -17,8 +17,9 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //->where('user_id', auth()->id())
-        $tickets  = Ticket::all();
+        
+        $user = auth()->user();
+        $tickets  = $user->isAdmin ? Ticket::latest()->get() : $user->tickets;
         return view('ticket.index',['tickets' => $tickets]);
     }
 
@@ -76,13 +77,6 @@ class TicketController extends Controller
 
         $ticket->update($request->except('attachment'));
 
-        if($request->has('status')){
-            $user = User::find($ticket->user_id);
-            //$user->notify(new TicketUpdatedNotification($ticket));
-
-            
-        }
-        
         if($request->file('attachment')){
             if($ticket->attachment == NULl && $request->file('attachment') != NULL){
                 
